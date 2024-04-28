@@ -1,0 +1,193 @@
+<!DOCTYPE html>  
+<html lang="zh">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>武侠人物生成器</title>  
+    <style>  
+        body {  
+            font-family: 'Microsoft YaHei', sans-serif; /* 使用微软雅黑字体 */  
+            background-color: #f0e6d8; /* 淡黄色背景 */  
+            margin: 0;  
+            padding: 0;  
+        }  
+  
+        .header {  
+            background: url('hero-banner.jpg') no-repeat center center fixed; /* 使用武侠风格背景图 */  
+            -webkit-background-size: cover;  
+            -moz-background-size: cover;  
+            -o-background-size: cover;  
+            background-size: cover;  
+            height: 200px;  
+            text-align: center;  
+            color: white;  
+            padding-top: 50px; /* 根据背景图调整文字位置 */  
+        }  
+  
+        .header h1 {  
+            font-size: 3em;  
+            margin: 0;  
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* 文字阴影效果 */  
+        }  
+  
+        .container {  
+            width: 80%;  
+            margin: 20px auto;  
+            background-color: white;  
+            padding: 20px;  
+            border-radius: 10px;  
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* 阴影效果 */  
+        }  
+  
+        button {  
+            background-color: #8b4513; /* 棕色背景 */  
+            border: none;  
+            color: white;  
+            padding: 10px 20px;  
+            font-size: 16px;  
+            border-radius: 5px;  
+            cursor: pointer;  
+            transition: background-color 0.3s ease;  
+        }  
+  
+        button:hover {  
+            background-color: #a52a2a; /* 悬停时颜色变深 */  
+        }  
+  
+        .info, .biography {  
+            border: 1px solid #ccc;  
+            border-radius: 5px;  
+            padding: 15px;  
+            margin-bottom: 15px;  
+        }  
+  
+        .info {  
+            background-color: #f5deb3; /* 淡黄色背景 */  
+        }  
+  
+        .biography {  
+            background-color: #eee; /* 浅灰色背景 */  
+        }  
+  
+        /* 武侠风装饰元素 */  
+        .decoration {  
+            text-align: center;  
+            margin-bottom: 20px;  
+        }  
+  
+        .decoration img {  
+            width: 100px;  
+            height: auto;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="header">  
+        <h1>中国武侠人物生成器</h1>  
+    </div>  
+    <div class="container">  
+        <div class="decoration">  
+            <img src="https://p1.ssl.qhimgs1.com/sdr/400__/t01587693f5efae5321.jpg" alt="武侠装饰图案"> <!-- 使用剑形图案作为装饰 -->  
+        </div>  
+        <button id="generate-button">生成武侠人物</button>  
+        <div id="character-info" class="info"></div>  
+        <button id="show-biography-button" disabled>显示人物小传</button>  
+        <div id="biography" class="biography"></div>  
+    </div>  
+    <script>  
+        // 人物信息对象  
+        let character = null;  
+  
+        // 生成姓名  
+        function generateName() {  
+            const firstNames = ['杨嘉欣', '吴玲', '刘文欣', '杨梅'];  
+            const lastName = '大侠';  
+            const randomIndex = Math.floor(Math.random() * firstNames.length);  
+            return `${firstNames[randomIndex]}${lastName}`;  
+        }  
+  
+        // 生成年龄  
+        function generateAge() {  
+            return Math.floor(Math.random() * (60 - 18 + 1)) + 18; // Age between 18 and 60  
+        }  
+  
+        // 生成出身  
+        function generateOrigin() {  
+            const origins = ['名门望族', '乡野村夫', '江湖浪人', '武林世家'];  
+            return origins[Math.floor(Math.random() * origins.length)];  
+        }  
+  
+        // 生成天赋  
+        function generateTalent() {  
+            const talents = ['天赋异禀', '资质平庸', '勤能补拙', '大智若愚'];  
+            return talents[Math.floor(Math.random() * talents.length)];  
+        }  
+  
+        // 生成性格  
+        function generatePersonality() {  
+            const personalities = ['豪爽', '狡黠', '沉稳', '狂放不羁'];  
+            return personalities[Math.floor(Math.random() * personalities.length)];  
+        }  
+  
+        // 生成魅力  
+        function generateCharm() {  
+            const charms = ['英俊潇洒', '貌不惊人', '气宇轩昂', '倾国倾城'];  
+            return charms[Math.floor(Math.random() * charms.length)];  
+        }  
+  
+        // 生成武侠人物  
+        function generateCharacter() {  
+            character = {  
+                name: generateName(),  
+                age: generateAge(),  
+                origin: generateOrigin(),  
+                talent: generateTalent(),  
+                personality: generatePersonality(),  
+                charm: generateCharm()  
+            };  
+  
+            displayCharacterInfo();  
+            enableBiographyButton();  
+        }  
+  
+        // 显示人物信息  
+        function displayCharacterInfo() {  
+            const characterInfo = `  
+                姓名：${character.name}  
+                年龄：${character.age}岁  
+                出身：${character.origin}  
+                禀赋：${character.talent}  
+                性格：${character.personality}  
+                魅力：${character.charm}  
+            `;  
+            document.getElementById('character-info').innerHTML = characterInfo;  
+        }  
+  
+        // 启用显示小传按钮  
+        function enableBiographyButton() {  
+            document.getElementById('show-biography-button').disabled = false;  
+        }  
+  
+        // 生成并显示人物小传  
+        function showBiography() {  
+            const personalityStories = {  
+                '豪爽': '他行走江湖，义气为重，常与各路英雄豪杰开怀畅饮，共同谋划江湖大计。一次，他单枪匹马闯入敌阵，救出被俘的同伴，一战成名，被世人传颂为豪侠。',  
+                '狡黠': '她心思缜密，善于观察，常能洞察先机。在一次江湖纷争中，她凭借聪明才智，化解了敌对势力的阴谋，保护了门派的安危，赢得了众人的敬佩。',  
+                '沉稳': '他性格沉稳，行事从容不迫。在一次武林大会上，面对众多高手的挑战，他镇定自若，以深厚的内力与高超的武艺，一一击败对手，最终夺得武林盟主之位，成为江湖中的传奇人物。',
+'狂放不羁': '他行事狂放不羁，不受世俗束缚。他独来独往，喜欢挑战强敌，追求武道的极致。在一次探险中，他意外发现了一处武林秘境，获得了一本绝世秘籍，从此武功更上一层楼，成为江湖中的绝世高手。'
+};const biography = `  
+            ${character.name}是一个${character.talent}的武侠人物，他/她出身于${character.origin}，性格${character.personality}。  
+            他/她行走江湖，历经磨难，练就了一身绝世武功。他/她的魅力无人能挡，无论走到哪里，都能吸引众人的目光。  
+            有一次，${character.name}遇到了一个强大的敌人，但是凭借他/她的勇气和智慧，最终战胜了对手，成为了江湖中的英雄。  
+            ${personalityStories[character.personality]}  
+        `;  
+
+        document.getElementById('biography').innerHTML = biography;  
+    }  
+
+    // 绑定按钮点击事件  
+    document.getElementById('generate-button').addEventListener('click', generateCharacter);  
+    document.getElementById('show-biography-button').addEventListener('click', showBiography);  
+</script>
+</body> 
+</html> 
